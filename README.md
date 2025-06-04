@@ -1,7 +1,3 @@
-Here's a suitable `README.md` for your GitHub repository, written to clearly communicate the project's purpose, usage, and setup instructions—while reflecting the quiet confidence of a tool that just works:
-
----
-
 # ResumeMatchr 🧪
 
 **A smart, lenient, student-friendly resume-to-job matcher built with Flask and LLMs.**
@@ -31,10 +27,11 @@ This lightweight web application takes a PDF resume and matches it against a cur
 
 ## 🛠️ Installation
 
-```bash
-git clone https://github.com/your-username/resumematchr.git
-cd resumematchr
-pip install -r requirements.txt
+```yaml
+clone repository
+run cells to install dependencies
+put your API key
+Run app
 ```
 
 Dependencies include:
@@ -50,7 +47,7 @@ Dependencies include:
 
 ## 🔑 API Key
 
-You **must** add your [OpenRouter API key](https://openrouter.ai/) to this line in `main.py`:
+You **must** add your [OpenRouter API key](https://openrouter.ai/) to this line in `app.ipynb`:
 
 ```python
 OPENROUTER_API_KEY = "your-api-key-here"
