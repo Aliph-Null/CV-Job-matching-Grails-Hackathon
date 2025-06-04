@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Upload PDF with Country Selection</title>
+    <style>
+      body {
+        background: linear-gradient(
+          to right,
+          hsl(210, 17%, 8%),
+          hsl(191, 89%, 18%)
+        );
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 50px;
+        color: white;
+      }
+
+      h2 {
+        background: linear-gradient(to right, #007bff, #00bcd4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+
+      img.logo {
+        width: 120px;
+        margin-bottom: 20px;
+      }
+
+      form {
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        max-width: 400px;
+        color: white;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type="file"],
+      select {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      input[type="submit"] {
+        background: linear-gradient(to right, #00bcd4, #007bff);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background: linear-gradient(to right, #007bff, #0056b3);
+      }
+
+      pre {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-width: 800px;
+        color: black;
+      }
+
+      .info {
+        margin-top: 20px;
+        font-size: 1.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="{{ url_for('static', filename='img/WorkShip2.png') }}"
+      alt="Logo"
+      class="logo"
+    />
+    <h2>Upload a PDF</h2>
+    <form method="post" enctype="multipart/form-data">
+      <label for="file">Select PDF:</label>
+      <input type="file" name="file" accept=".pdf" required />
+
+      <label for="country">Select Country:</label>
+      <select name="country" required>
+        <option value="Europe">🇪🇺 Europe</option>
+        <option value="Netherlands">🇳🇱 Netherlands</option>
+        <option value="Germany">🇩🇪 Germany</option>
+      </select>
+
+      <input type="submit" value="Upload & Extract Text" />
+    </form>
+
+    {% if country %}
+    <div class="info">
+      📍 Selected Country:
+      <strong>{{ country }}</strong>
+    </div>
+    {% endif %} {% if text %} {% if results %}
+    <h3 style="margin-top: 40px">Analysis Results:</h3>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 500px;
+        margin-top: 10px;
+      "
+    >
+      {% for item in results %}
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 10px 15px;
+          border-radius: 8px;
+        "
+      >
+        <strong>{{ item.name }}</strong>
+        <div
+          style="
+            width: 60%;
+            background: #eee;
+            border-radius: 6px;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="width: {{ item.percentage }}%; background-color: {{ item.color }}; padding: 5px 0; text-align: center; color: black;"
+          >
+            {{ item.percentage }}%
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endif %}
+  </body>
+</html>
